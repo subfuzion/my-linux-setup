@@ -1,3 +1,19 @@
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/vim
+sudo update-alternatives --set editor /usr/bin/vim.basic
+
+#
+# Aliases
+#
+alias l="ls -AhF"
+alias ll="ls -lAhF"
+alias gs="git status"
+alias gb="git branch"
+alias gc="git checkout"
+
+#
+# PS1 prompt
+#
 parse_git_branch() {
   git branch --show-current 2>/dev/null | sed -e 's/\(.*\)/ (\1)/'
 }
