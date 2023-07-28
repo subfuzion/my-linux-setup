@@ -26,6 +26,8 @@ if [ -f "$HOME/.bash_profile" ]; then
 	BASH_PROFILE="$HOME/.bash_profile"
 fi
 
+BASHRC="$HOME/.bashrc"
+
 USER_PROFILE="$HOME/.$USER.profile"
 USER_PROFILE_STR=$(printf '"$HOME/.%s.profile"' "$USER")
 
@@ -54,9 +56,14 @@ set_user_profile() {
 	printf "source $USER_PROFILE_STR\n" >>"$BASH_PROFILE"
 	end_custom_block "$BASH_PROFILE"
 
+	begin_custom_block "$BASHRC"
+	printf 'if [ "$TONY_PROFILE" != "1" ]; then' >>"$BASHRC"
+	printf "\tsource $USER_PROFILE_STR\n" >>"$BASHRC"
+	printf 'fi' >> "$BASHRC"
+	end_custom_block "$BASHRC"
+
 	write_generated_header "$USER_PROFILE"
 	cat "$TMPL_DIR"/profile >> "$USER_PROFILE"
-
 }
 
 copy_conf_files() {
