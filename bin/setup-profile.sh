@@ -69,5 +69,9 @@ copy_conf_files() {
 	shopt -u dotglob
 }
 
+configure_defaults() {
+}
+
 set_user_profile
 copy_conf_files
+configure_defaults

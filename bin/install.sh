@@ -6,3 +6,6 @@ sudo apt -y update && sudo apt -y install \
 	curl \
 	tmux \
 	vim
+
+
+sudo update-alternatives --set editor /usr/bin/vim.basic
