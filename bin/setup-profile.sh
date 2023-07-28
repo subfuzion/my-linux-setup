@@ -62,7 +62,7 @@ set_user_profile() {
 copy_conf_files() {
 	for i in "$CONF_DIR"/{.*,*}; do
 		if [[ -r "$i" ]]; then
-			cp "$i" "$HOME/"
+			cp -r "$i" "$HOME/"
 		fi
 	done
 }
