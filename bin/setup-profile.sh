@@ -60,11 +60,13 @@ set_user_profile() {
 }
 
 copy_conf_files() {
-	for i in "$CONF_DIR"/{.*,*}; do
+	shopt -s dotglob
+	for i in $(ls "$CONF_DIR/*" 2>/dev/null); do
 		if [[ -r "$i" ]]; then
 			cp -r "$i" "$HOME/"
 		fi
 	done
+	shopt -u dotglob
 }
 
 set_user_profile
