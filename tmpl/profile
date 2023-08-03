@@ -6,8 +6,9 @@ export VISUAL=/usr/bin/vim
 #
 # Aliases
 #
-alias l="ls -AhF"
-alias ll="ls -lAhF"
+alias l="ls -ChF"
+alias l="l -A"
+alias ll="la -l"
 alias gs="git status"
 alias gb="git branch"
 alias gc="git checkout"
