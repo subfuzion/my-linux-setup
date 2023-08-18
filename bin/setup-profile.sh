@@ -53,11 +53,13 @@ write_generated_header() {
 
 set_user_profile() {
 	begin_custom_block "$BASH_PROFILE"
-	printf "source $USER_PROFILE_STR\n" >>"$BASH_PROFILE"
+	printf 'if [[ "$MY_LINUX_SETUP" != "1" ]]; then' >>"$BASH_PROFILE"
+	printf "\tsource $USER_PROFILE_STR\n" >>"$BASH_PROFILE"
+	printf 'fi' >> "$BASH_PROFILE"
 	end_custom_block "$BASH_PROFILE"
 
 	begin_custom_block "$BASHRC"
-	printf 'if [ "$TONY_PROFILE" != "1" ]; then' >>"$BASHRC"
+	printf 'if [[ "$MY_LINUX_SETUP" != "1" ]]; then' >>"$BASHRC"
 	printf "\tsource $USER_PROFILE_STR\n" >>"$BASHRC"
 	printf 'fi' >> "$BASHRC"
 	end_custom_block "$BASHRC"

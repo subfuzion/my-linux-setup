@@ -1,4 +1,4 @@
-export MY_LINUX_PROFILE=1
+export MY_LINUX_SETUP=1
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
@@ -6,9 +6,10 @@ export VISUAL=/usr/bin/vim
 #
 # Aliases
 #
-alias l="ls -ChF"
+alias l="ls -ChF --group-directories-first"
 alias l="l -A"
 alias ll="la -l"
+
 alias gs="git status"
 alias gb="git branch"
 alias gc="git checkout"

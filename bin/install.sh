@@ -7,6 +7,7 @@ sudo apt -y update && sudo apt -y install \
 	curl \
 	git \
 	gnupg \
+	net-tools \
 	tmux \
 	vim
 
