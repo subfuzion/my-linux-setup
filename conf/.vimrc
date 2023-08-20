@@ -1,11 +1,4 @@
 "====================================================================
-" Configure (edit) and (re)oad .vimrc
-"====================================================================
-nnoremap conf :e $MYVIMRC <enter>
-nnoremap confs :source $MYVIMRC <enter>
-
-
-"====================================================================
 " Leader key
 "====================================================================
 nnoremap <space> <nop>
@@ -15,6 +8,7 @@ let g:mapleader = " "
 "====================================================================
 " Basic editor settings
 "====================================================================
+" Don't pollute current directory
 set backupdir=/tmp//
 set directory=/tmp//
 set undodir=/tmp//
@@ -28,7 +22,7 @@ set backspace=indent,eol,start
 " Shorten from default 2 seconds.
 set timeoutlen=1000
 
-" For faster connections, otherwise disable this:
+" Good for faster connections
 set ttyfast
 
 set clipboard=unnamed
@@ -55,10 +49,6 @@ set showcmd
 " Always show statusline even if only window
 set laststatus=2
 
-" Highlight current line
-set cursorline
-nnoremap <silent> <leader>h :set cursorline!<enter>
-
 " Highlight matches when searching.
 " Use <esc><esc> to clear.
 set hlsearch
@@ -67,17 +57,13 @@ set hlsearch
 " nnoremap <silent> <c-L> :nohlsearch<enter><c-L>
 nnoremap <silent> <esc><esc> :nohlsearch<enter><c-L>
 
-" Visual matching for :e.
-set wildmenu
-"set wildmode=list:longest
-set wildmode=full:lastused
-
 
 "====================================================================
-" Dirty files behavior
+" Unsaved files behavior
 "====================================================================
 " Leave buffers without being forced to write changes, but get
 " reminded if unsaved changes when quitting.
+" Also, netrw will use the whole window when `hidden` is set.
 set hidden
 set noautowriteall
 
@@ -94,38 +80,29 @@ set confirm
 
 
 "====================================================================
-" Format
+" Toggles
 "====================================================================
-set tabstop=4
-set shiftwidth=4
-set noexpandtab
-set autoindent
-filetype plugin indent on
-
-
-"====================================================================
-" Toggle line numbers
-"====================================================================
+" Toggle line numbers: tn
 set nonumber
 nnoremap <silent> tn :set number! number?<enter>
 
-
-"====================================================================
-" Toggle soft line wrapping
-"====================================================================
+" Toggle soft line wrapping: tw
 set nowrap
 nnoremap <silent> tw :set wrap! wrap?<enter>
 
+" Toggle list (display) hidden whitespace: tl
+set listchars=eol:↲,tab:→\ ,nbsp:_,extends:…,trail:•
+set nolist
+nnoremap <silent> tl :set list! list?<enter>
 
-"====================================================================
-" Toggle syntax
-"====================================================================
-syn enable
-syn on
+" Toggle current line highlighting: th
+set cursorline
+nnoremap <silent> th :set cursorline!<enter>
 
-" Disable syntax highlighting for:
-"au BufNewFile,BufRead *.{json} setlocal syntax=off
 
+" Toggle syntax highlighting: ts
+syntax enable
+syntax on
 nnoremap <silent> ts :if exists("g:syntax_on") <bar>
          \   syntax off <bar>
          \ else <bar>
@@ -133,12 +110,8 @@ nnoremap <silent> ts :if exists("g:syntax_on") <bar>
          \ endif <enter>
 
 
-"====================================================================
-" Toggle list (show hidden whitespace)
-"====================================================================
-set listchars=eol:↲,tab:→\ ,nbsp:_,extends:…,trail:•
-set nolist
-nnoremap <silent> tl :set list! list?<enter>
+" Disable syntax highlighting for specific file extensions, for ex:
+"au BufNewFile,BufRead *.{json} setlocal syntax=off
 
 
 "====================================================================
@@ -167,7 +140,6 @@ nnoremap <silent> <leader>p :bp<enter>
 " Toggle buffer (switch between current and last buffer).
 nnoremap <silent> <leader><space> <C-^>
 
-
 " Close buffer.
 nnoremap <silent> <leader>d :bd<enter>
 
@@ -179,22 +151,18 @@ nnoremap <S-f> <c-f>
 nnoremap <S-b> <c-b>
 
 " Scroll up and down using same keys for cursor up and down.
-"nnoremap <C-j> <c-e>
-"nnoremap <C-k> <c-y>
+nnoremap <C-j> <c-e>
+nnoremap <C-k> <c-y>
 
 " Move cursor to top, middle, or bottom.
-" Easier for me to remember "go top" than "HIGH" (or "home"), etc.
-"nnoremap gt H
-"nnoremap gm M
-"nnoremap gb L
+nnoremap gt H
+nnoremap gm M
+nnoremap gb L
 
-" Try to scroll current line to top, middle, or bottom.
-" I really have trouble hitting the z key with my pinky, so "m" for "move".
-" Plus I like to return cursor to column 1.
-" Reminder: Ctrl-e and Ctrl-y scroll line by line.
-nnoremap mt zt 0
-nnoremap mm zz 0
-nnoremap mb zb 0
+" Scroll to to top, middle, or bottom
+nnoremap st zt
+nnoremap sm zz
+nnoremap mb zb
 
 " Go to buffer.
 "
@@ -214,6 +182,7 @@ nnoremap <silent> <Tab> :buffer<space>
 " :vnew        | add vertical split and active window to right
 " <c-w>h|j|k|l | move to window to left|below|above|right
 " <c-w>c       | close window (not buffer)
+" <c-w>=       | resize windows evently
 "====================================================================
 " Prefer opening windows to right and below.
 set splitright
@@ -278,44 +247,14 @@ set splitbelow
 
 
 "====================================================================
-" find
-"====================================================================
-set wildignore=.git/,node_modules/,build/,tmp/,scratch
-set path+=**
-
-
-"====================================================================
 " netrw file explorer (project drawer)
-" This is a crutch; use fzf instead (see below), but sometimes it's
-" nice to see the tree vertically.
-"
-" https://shapeshed.com/vim-netrw/
-" https://vonheikemen.github.io/devlog/tools/using-netrw-vim-builtin-file-explorer/
-" http://ellengummesson.com/blog/2014/02/22/make-vim-really-behave-like-netrw/
-" https://github.com/tpope/vim-vinegar
+" Minimalist configuration; sometimes it's nice to see the file
+" directory structure, but the rest of the time, use fzf (below).
+" Note: T has been mapped to the shell tree command as well.
 "====================================================================
-set nocp
-filetype plugin on
-let g:netrw_altv = 1
 let g:netrw_banner = 0
-let g:netrw_browse_split = 0
-let g:netrw_keepdir = 0
-"let g:netrw_liststyle = 3
-let g:netrw_localcopydircmd = 'cp -r'
-let g:netrw_winsize = 25
-hi! link netrwMarkFile Search
-
-nnoremap <silent> mm :Lexplore %:p:h<enter>
-nnoremap <silent> m; :Lexplore<enter>
-"nnoremap <silent> <Space> :Lexplore<enter>
-
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * if argc() == 0 | :Lexplore | endif
-augroup END
-
-" Comment this out to leave project drawer open after selecting file
-autocmd FileType netrw autocmd BufLeave <buffer> if &filetype == 'netrw' | :bd | endif
+let g:netrw_liststyle = 3
+nnoremap <silent> ,, :Rexplore<cr>
 
 
 "====================================================================
@@ -333,11 +272,49 @@ let g:fzf_action = {
 cnoreabbrev <expr> fzf getcmdtype() == ":" && getcmdline() == 'fzf' ? 'FZF' : 'fzf'
 
 " map ;; to :FZF
-nnoremap <silent> <enter> :FZF<enter>
+nnoremap <silent> ;; :FZF<enter>
+
 
 " To enable history for MRU...
-" Personally, I prefer Ctrl-n and Ctrl-p for navigating the visual
-" list, not history
+" I prefer Ctrl-n and Ctrl-p navigates the visual list, not history
 "let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 
+"====================================================================
+" Configuration
+"====================================================================
+" Initial settings likely to change often
+function s:default()
+	echom "Setting default configuration"
+
+	" wild menu tab completion
+	set wildmenu
+	set wildmode=longest:list,full
+
+	" Format
+	set tabstop=4
+	set shiftwidth=4
+	set noexpandtab
+	set autoindent
+	filetype plugin indent on
+
+	" find
+	set wildignore=.git/,node_modules/,build/,tmp/,scratch
+	set path+=**
+endfunction
+
+" Reload .vimrc
+command! ConfigReload source $MYVIMRC|echom "Reloaded .vimrc"
+
+" Edit .vimrc
+command! ConfigEdit edit $MYVIMRC
+
+" Reset just the default settings
+command! ConfigDefault call s:default()
+
+" Follow ConfigDefault command pattern to create other setting profiles
+
+autocmd VimEnter * call s:default()
+
+
+nnoremap <silent> T :!tree -C \| less -r <cr><cr>
