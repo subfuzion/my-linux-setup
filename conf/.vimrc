@@ -154,15 +154,18 @@ nnoremap <silent> <Tab> :buffer<space>
 
 "====================================================================
 " Windows
+" Avoid these settings and embrace vim. Use only if you must.
 " :new         | add horizontal split and active window below
 " :vnew        | add vertical split and active window to right
 " <c-w>h|j|k|l | move to window to left|below|above|right
 " <c-w>c       | close window (not buffer)
 " <c-w>=       | resize windows evently
 "====================================================================
-" Prefer opening windows to right and below.
-set splitright
-set splitbelow
+" If you prefer opening windows to right and below.
+" I recommend embracing the vim way. Think of your windows as a stack
+" and then opening above and to the left make sense.
+"set splitright
+"set splitbelow
 
 " Resize horizontal splits (change height).
 " <c-w><s--> and <c-w><s-=> only shift one line at a time (too slow)
