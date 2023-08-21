@@ -20,7 +20,7 @@ set noerrorbells
 set backspace=indent,eol,start
 
 " Shorten from default 2 seconds.
-set timeoutlen=1000
+set timeoutlen=500
 
 " Good for faster connections
 set ttyfast
@@ -46,16 +46,13 @@ set showmode
 " Show command in statusline
 set showcmd
 
-" Always show statusline even if only window
+" Always show statusline even if only window.
 set laststatus=2
 
 " Highlight matches when searching.
-" Use <esc><esc> to clear.
 set hlsearch
-" Redraw screen and clear search highlighted items.
-" http://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting#answer-25569434
-" nnoremap <silent> <c-L> :nohlsearch<enter><c-L>
-nnoremap <silent> <esc><esc> :nohlsearch<enter><c-L>
+" Clear highlighted search items (redraw screen).
+nnoremap <silent> \\ :nohlsearch<enter><c-L>
 
 
 "====================================================================
@@ -154,16 +151,6 @@ nnoremap <S-b> <c-b>
 nnoremap <C-j> <c-e>
 nnoremap <C-k> <c-y>
 
-" Move cursor to top, middle, or bottom.
-nnoremap gt H
-nnoremap gm M
-nnoremap gb L
-
-" Scroll to to top, middle, or bottom
-nnoremap st zt
-nnoremap sm zz
-nnoremap mb zb
-
 " Go to buffer.
 "
 " 1.  <space>l
@@ -209,6 +196,8 @@ set splitbelow
 "====================================================================
 " Terminal
 "====================================================================
+tnoremap <esc><esc> <C-w>N
+
 " Start terminal in insert mode.
 "au Bufenter * if &buftype == 'terminal' | :startinsert | endif
 
@@ -285,8 +274,6 @@ nnoremap <silent> ;; :FZF<enter>
 "====================================================================
 " Initial settings likely to change often
 function s:default()
-	echom "Setting default configuration"
-
 	" wild menu tab completion
 	set wildmenu
 	set wildmode=longest:list,full
@@ -316,5 +303,15 @@ command! ConfigDefault call s:default()
 
 autocmd VimEnter * call s:default()
 
-
 nnoremap <silent> T :!tree -C \| less -r <cr><cr>
+
+
+"====================================================================
+" Tabs
+"====================================================================
+nnoremap <silent> ttf :tabfirst<enter>
+nnoremap <silent> ttl :tablast<enter>
+nnoremap <silent> ttn :tabnext<enter>
+nnoremap <silent> ttp :tabprev<enter>
+nnoremap <silent> ttc :tabclose<enter>
+nnoremap <silent> tls :tabs<enter>
