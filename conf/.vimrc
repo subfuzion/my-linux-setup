@@ -6,6 +6,39 @@ let g:mapleader = " "
 
 
 "====================================================================
+" Map - keep up-to-date as a quick reference and to avoid conflicts.
+"====================================================================
+" <leader>   |  
+"         a  |  
+"         b  |  
+"         c  |  
+"         d  |  
+"         e  |  netrw explorer
+"         f  |  fzf
+"         g  |  
+"         h  |  
+"         i  |  
+"         j  |  
+"         k  |  
+"         l  |  list buffers
+"         m  |  
+"         n  |  next buffer
+"         o  |  
+"         p  |  previous buffer
+"         q  |  
+"         r  |  
+"         s  |  
+"         t  |  
+"         u  |  
+"         v  |  
+"         w  |  tree
+"         x  |  
+"         y  |  
+"         a  |  
+"   <space>  | toggle previous buffer
+"         ;  | open terminal in tab
+
+"====================================================================
 " Basic editor settings
 "====================================================================
 " Don't pollute current directory
@@ -19,10 +52,9 @@ set novisualbell
 set noerrorbells
 set backspace=indent,eol,start
 
-" Shorten from default 2 seconds.
-set timeoutlen=500
-
-" Good for faster connections
+" Zippy
+set timeoutlen=300
+set updatetime=300
 set ttyfast
 
 set clipboard=unnamed
@@ -31,10 +63,10 @@ set clipboard=unnamed
 set mouse=a
 set ttymouse=sgr
 
-" Nicer vertical lines for splits.
+" Nice vertical lines for window splits.
 set fillchars+=vert:\▏
 
-" Scroll a bit extra horizontally when moving cursor out of view.
+" Scroll a bit extra horizontally when scrolling past side edge.
 set sidescroll=6
 
 " Enable line and column display.
@@ -52,7 +84,7 @@ set laststatus=2
 " Highlight matches when searching.
 set hlsearch
 " Clear highlighted search items (redraw screen).
-nnoremap <silent> \\ :nohlsearch<enter><c-L>
+nnoremap <silent> \\ :nohlsearch<CR><c-L>
 
 
 "====================================================================
@@ -81,20 +113,20 @@ set confirm
 "====================================================================
 " Toggle line numbers: tn
 set nonumber
-nnoremap <silent> tn :set number! number?<enter>
+nnoremap <silent> tn :set number! number?<CR>
 
 " Toggle soft line wrapping: tw
 set nowrap
-nnoremap <silent> tw :set wrap! wrap?<enter>
+nnoremap <silent> tw :set wrap! wrap?<CR>
 
 " Toggle list (display) hidden whitespace: tl
 set listchars=eol:↲,tab:→\ ,nbsp:_,extends:…,trail:•
 set nolist
-nnoremap <silent> tl :set list! list?<enter>
+nnoremap <silent> tl :set list! list?<CR>
 
 " Toggle current line highlighting: th
 set cursorline
-nnoremap <silent> th :set cursorline!<enter>
+nnoremap <silent> th :set cursorline!<CR>
 
 
 " Toggle syntax highlighting: ts
@@ -104,7 +136,7 @@ nnoremap <silent> ts :if exists("g:syntax_on") <bar>
          \   syntax off <bar>
          \ else <bar>
          \   syntax on <bar>
-         \ endif <enter>
+         \ endif <CR>
 
 
 " Disable syntax highlighting for specific file extensions, for ex:
@@ -114,23 +146,14 @@ nnoremap <silent> ts :if exists("g:syntax_on") <bar>
 "====================================================================
 " Buffers
 "====================================================================
-" Write buffer.
-nnoremap <silent> <leader>w :w<enter>
-
 " Go to next buffer.
-nnoremap <silent> <leader>n :bn<enter>
+nnoremap <silent> <leader>n :bn<CR>
 
 " Go to previous buffer.
-nnoremap <silent> <leader>p :bp<enter>
+nnoremap <silent> <leader>p :bp<CR>
 
 " Toggle buffer (switch between current and last buffer).
 nnoremap <silent> <leader><space> <C-^>
-
-" Close buffer.
-nnoremap <silent> <leader>d :bd<enter>
-
-" Kill buffer (ignore edits).
-nnoremap <silent> <leader>k :bd!<enter>
 
 " Page forward and back.
 nnoremap <S-f> <c-f>
@@ -145,7 +168,7 @@ nnoremap <C-k> <c-y>
 " 1.  <space>l
 "     => list buffers and then enter :b# to go to buffer
 "        or :b<space><tab> to select
-nnoremap <silent> <leader>l :buffers<enter>
+nnoremap <silent> <leader>l :buffers<CR>
 "
 " 2.  <tab><tab>
 "     => list buffers and select by tabbing
@@ -171,15 +194,15 @@ nnoremap <silent> <Tab> :buffer<space>
 " <c-w><s--> and <c-w><s-=> only shift one line at a time (too slow)
 "nnoremap <silent> <C-w>- :exe <C-w><s-->
 "nnoremap <silent> <C-w>= :exe <C-w><s-=>
-"nnoremap <silent> <leader>- :exe "resize " . (winheight(0) - 10)<enter>
-"nnoremap <silent> <leader>= :exe "resize " . (winheight(0) + 10)<enter>
+"nnoremap <silent> <leader>- :exe "resize " . (winheight(0) - 10)<CR>
+"nnoremap <silent> <leader>= :exe "resize " . (winheight(0) + 10)<CR>
 
 " Resize vertical splits (change width).
 " <c-w><s-,> and <c-w><s-.> only shift one line at a time (too slow)
 "nnoremap <silent> <C-w>, <C-w><s-,>
 "nnoremap <silent> <C-w>. <C-w><s-.>
-"nnoremap <silent> <leader>, :exe "vertical resize " . (winwidth(0) - 10)<enter>
-"nnoremap <silent> <leader>. :exe "vertical resize " . (winwidth(0) + 10)<enter>
+"nnoremap <silent> <leader>, :exe "vertical resize " . (winwidth(0) - 10)<CR>
+"nnoremap <silent> <leader>. :exe "vertical resize " . (winwidth(0) + 10)<CR>
 
 " Resize everything evently.
 "nnoremap <silent> <leader>0 <c-w>=
@@ -188,59 +211,19 @@ nnoremap <silent> <Tab> :buffer<space>
 "====================================================================
 " Tabs
 "====================================================================
-nnoremap <silent> ttf :tabfirst<enter>
-nnoremap <silent> ttl :tablast<enter>
-nnoremap <silent> ttn :tabnext<enter>
-nnoremap <silent> ttp :tabprev<enter>
-nnoremap <silent> ttc :tabclose<enter>
-nnoremap <silent> tls :tabs<enter>
+nnoremap <silent> ttf :tabfirst<CR>
+nnoremap <silent> ttl :tablast<CR>
+nnoremap <silent> ttn :tabnext<CR>
+nnoremap <silent> ttp :tabprev<CR>
+nnoremap <silent> ttc :tabclose<CR>
+nnoremap <silent> tls :tabs<CR>
 
 
 "====================================================================
 " Terminal
 "====================================================================
-nnoremap <silent> <leader>; :tab term<enter>
-
-" The following seems to interfere with <esc> when using fzf...
-"tnoremap <esc><esc> <C-w>N
-" ...so, unfortunately, we need an explicit test for fzf:
-tnoremap <expr> <esc><esc> (&filetype == "fzf") ? "<esc>" : "<C-w>N"
-
-" Start terminal in insert mode.
-"au Bufenter * if &buftype == 'terminal' | :startinsert | endif
-
-" New terminal below.
-"nnoremap <silent> <leader>; :botright terminal<enter>
-
-
-" New terminal to the right.
-"nnoremap <silent> <leader>, :vertical terminal<enter>
-"tnoremap <silent> <leader>, <c-w>:vertical terminal ++close<enter>
-
-" Navigation
-"tnoremap <leader>hh <c-w>h
-"tnoremap <leader>jj <c-w>j
-"tnoremap <leader>kk <c-w>k
-"tnoremap <leader>ll <c-w>l
-
-" Go to previous / next buffer
-"tnoremap <leader>p <c-w><c-p>
-"tnoremap <leader>n <c-w><c-n>
-
-" toggle buffer (switch between current and last buffer).
-"tnoremap <silent> <leader>bb <C-^>
-
-" Close terminal
-" ==============
-
-" Enter terminal "normal" mode.
-" tnoremap <silent> <esc> <c-\><c-n>
-
-" Close window but don't terminate the shell buffer (can go back to it later)
-"tnoremap <silent> <leader>; <c-w>:close!<enter>
-
-" Close window and terminate the shell.
-"tnoremap <silent> <leader>c <c-w>:bd!<enter>
+nnoremap <silent> <leader>; :tab term<CR>
+tnoremap <nowait> <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<C-w>N"
 
 
 "====================================================================
@@ -253,8 +236,8 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 
 " Acts as a toggle, but only works if netrw has been loaded first,
-" such as by entering :e .<enter>
-nnoremap <silent> <leader>e :Rexplore<enter>
+" such as by entering :e .<CR>
+nnoremap <silent> <leader>e :Rexplore<CR>
 
 
 "====================================================================
@@ -272,7 +255,7 @@ let g:fzf_action = {
 cnoreabbrev <expr> fzf getcmdtype() == ":" && getcmdline() == 'fzf' ? 'FZF' : 'fzf'
 
 " map ;; to :FZF
-nnoremap <silent> <leader>f :FZF<enter>
+nnoremap <silent> <leader>f :FZF<CR>
 
 " To enable history for MRU...
 " I prefer Ctrl-n and Ctrl-p navigates the visual list, not history
@@ -284,21 +267,21 @@ nnoremap <silent> <leader>f :FZF<enter>
 "====================================================================
 " Initial settings likely to change often
 function s:default()
-	" wild menu tab completion
-	set wildmenu
-	set wildmode=longest:list,full
+    " wild menu tab completion
+    set wildmenu
+    set wildmode=longest:list,full
 
-	" Format
-	set tabstop=8
-	set softtabstop=4
-	set shiftwidth=4
-	set noexpandtab
-	set autoindent
-	filetype plugin indent on
+    " Format
+    set tabstop=8
+    set softtabstop=4
+    set shiftwidth=4
+    set noexpandtab
+    set autoindent
+    filetype plugin indent on
 
-	" find
-	set wildignore=.git/,node_modules/,build/,tmp/,scratch
-	set path+=**
+    " find
+    set wildignore=.git/,node_modules/,build/,tmp/,scratch
+    set path+=**
 endfunction
 
 " Reload .vimrc
@@ -312,9 +295,12 @@ command! ConfigDefault call s:default()
 
 " Follow ConfigDefault command pattern to create other setting profiles
 
-autocmd VimEnter * call s:default()
+augroup AutoEnter
+    autocmd!
+    autocmd VimEnter * call s:default()
+augroup END
 
-nnoremap <silent> <leader>t :!tree -C \| less -r <enter><enter>
+nnoremap <silent> <leader>t :!tree -C \| less -r <CR><CR>
 
 
 "====================================================================
