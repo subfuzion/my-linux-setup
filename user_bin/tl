@@ -1,0 +1,3 @@
+#!/bin/sh
+# Use echo to force newlines to spaces conversion.
+echo $(tmux ls -F '#{session_name}')

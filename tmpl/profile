@@ -34,3 +34,8 @@ export PATH=$PATH:/usr/local/go/bin
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Completions
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/bin/tl-completion.bash ] && source ~/bin/tl-completion.bash
+[ -f ~/.config/completions/deno.bash ] && source ~/.config/completions/deno.bash

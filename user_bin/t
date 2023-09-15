@@ -1,0 +1,3 @@
+#!/bin/sh
+path="${1:-.}"
+tree "$path" -C | less -r

@@ -1,0 +1,2 @@
+#!/bin/sh
+ngrok tcp --region=us --remote-addr=7.tcp.ngrok.io:26373 22

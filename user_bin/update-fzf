@@ -1,0 +1,2 @@
+#!/bin/sh
+cd ~/.fzf && git pull && ./install --no-fish --no-zsh
