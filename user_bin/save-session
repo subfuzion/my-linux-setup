@@ -1,0 +1,7 @@
+#!/bin/bash
+
+timestamp() {
+  printf "%s" $(date +%D)
+}
+
+printf "%s\t%s\n" $(timestamp) $PWD >> ~/.config/session/history
