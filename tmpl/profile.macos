@@ -1,4 +1,4 @@
-# profile
+# profile.macos
 
 # make sure we're running bash
 if [ -z "$BASH_VERSION" ]; then
@@ -18,7 +18,7 @@ export XDG_CONFIG_HOME=~/.config
 #
 # Aliases
 #
-alias l="ls -ChF --group-directories-first"
+alias l="ls -Fhv"
 alias la="l -A"
 alias ll="la -l"
 alias lh="ls -a | grep '^\.'"
@@ -46,4 +46,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 [ -f ~/bin/tl-completion.bash ] && source ~/bin/tl-completion.bash
 [ -f ~/.config/completions/deno.bash ] && source ~/.config/completions/deno.bash
-

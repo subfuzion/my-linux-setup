@@ -65,11 +65,12 @@ set_user_profile() {
 	printf "if [[ \"$MY_LINUX_SETUP\" != \"1\" ]]; then\n" >>"$BASHRC"
 	printf "\tsource $USER_PROFILE_STR\n" >>"$BASHRC"
 	printf "fi\n" >> "$BASHRC"
+	printf "\tsource $USER_PROMPT_STR\n" >>"$BASHRC"
 	end_custom_block "$BASHRC"
 
 	write_generated_header "$USER_PROFILE"
 	cat "$TMPL_DIR"/profile >> "$USER_PROFILE"
-	cat "$TMPL_DIR"/profile >> "$USER_PROMPT"
+	cat "$TMPL_DIR"/prompt >> "$USER_PROMPT"
 }
 
 copy_conf_files() {
