@@ -1,0 +1,41 @@
+print_relative_dir() {
+  re="^$HOME(/?.*)"
+  [[ "$PWD" =~ $re ]] && echo "~${BASH_REMATCH[1]}" || echo "$PWD"
+}
+
+is_workspace() {
+  # Path on macOS will begin with /Volumes
+  re="^(/Volumes)?(/google/src/cloud)/(${USER})/([^/]+)(/.*)?"
+  dir="$PWD"
+  [[ "$dir" =~ $re ]] && return 0 || return 1
+}
+
+parse_workspace() {
+  re="^(/Volumes)?(/google/src/cloud)/(${USER})/([^/]+)(/.*)?"
+  dir="$PWD"
+  if [[ ! "$dir" =~ $re ]]; then
+    print_relative_dir
+    return 0
+  fi
+  project="${BASH_REMATCH[4]}"
+  wspath="${BASH_REMATCH[5]}"
+  printf "[%s] %s" "$project" "$(basename $wspath)"
+}
+
+parse_client() {
+  is_workspace || return
+  ws="piper"
+  hg root 2>/dev/null 1>&2 ; [[ "$?" -eq 0 ]] && ws="fig"
+  printf " (%s)" "$ws"
+}
+
+parse_git_branch() {
+  git branch --show-current 2>/dev/null | sed -e 's/\(.*\)/ (\1)/'
+}
+
+prompt_generator() {
+# export PS1="\[\033[01;32m\]\h:\[\033[00m\]\[\033[01;34m\]$(parse_workspace)\[\033[00m\]$(parse_client)$(parse_git_branch)\[\033[00m\]\n$ "
+  export PS1="\[\033[01;32m\]local:\[\033[00m\]\[\033[01;34m\]$(parse_workspace)\[\033[00m\]$(parse_client)$(parse_git_branch)\[\033[00m\]\n$ "
+}
+
+export PROMPT_COMMAND=prompt_generator

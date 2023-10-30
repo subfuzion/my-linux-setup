@@ -31,6 +31,9 @@ BASHRC="$HOME/.bashrc"
 USER_PROFILE="$HOME/.$USER.profile"
 USER_PROFILE_STR=$(printf '"$HOME/.%s.profile"' "$USER")
 
+USER_PROMPT="$HOME/.$USER.prompt"
+USER_PROMPT_STR=$(printf '"$HOME/.%s.prompt"' "$USER")
+
 begin_custom_block() {
 	f="$1"
         printf "\n# BEGIN $APP_NAME\n" >>"$f"
@@ -66,6 +69,7 @@ set_user_profile() {
 
 	write_generated_header "$USER_PROFILE"
 	cat "$TMPL_DIR"/profile >> "$USER_PROFILE"
+	cat "$TMPL_DIR"/profile >> "$USER_PROMPT"
 }
 
 copy_conf_files() {
