@@ -53,15 +53,15 @@ write_generated_header() {
 
 set_user_profile() {
 	begin_custom_block "$BASH_PROFILE"
-	printf 'if [[ "$MY_LINUX_SETUP" != "1" ]]; then' >>"$BASH_PROFILE"
+	printf "if [[ \"$MY_LINUX_SETUP\" != \"1\" ]]; then\n" >>"$BASH_PROFILE"
 	printf "\tsource $USER_PROFILE_STR\n" >>"$BASH_PROFILE"
-	printf 'fi' >> "$BASH_PROFILE"
+	printf "fi\n" >> "$BASH_PROFILE"
 	end_custom_block "$BASH_PROFILE"
 
 	begin_custom_block "$BASHRC"
-	printf 'if [[ "$MY_LINUX_SETUP" != "1" ]]; then' >>"$BASHRC"
+	printf "if [[ \"$MY_LINUX_SETUP\" != \"1\" ]]; then\n" >>"$BASHRC"
 	printf "\tsource $USER_PROFILE_STR\n" >>"$BASHRC"
-	printf 'fi' >> "$BASHRC"
+	printf "fi\n" >> "$BASHRC"
 	end_custom_block "$BASHRC"
 
 	write_generated_header "$USER_PROFILE"
@@ -79,6 +79,7 @@ copy_conf_files() {
 }
 
 configure_defaults() {
+	:
 }
 
 set_user_profile
