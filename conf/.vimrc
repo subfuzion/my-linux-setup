@@ -97,6 +97,7 @@ nnoremap <silent> \\ :nohlsearch<CR><c-L>
 " Also, netrw will use the whole window when `hidden` is set.
 set hidden
 set noautowriteall
+set confirm
 
 " Automatically save changes when leaving buffers.
 " The opposite of the above (maybe useful if you always want changes
@@ -106,12 +107,14 @@ set noautowriteall
 "set nohidden
 "set autowriteall
 
-" Safety check to ensure no unsaved buffers when quitting.
-set confirm
-
 
 "====================================================================
 " Toggles
+" tn - toggle numbers (line numbers)
+" tw - toggle wrapping (line wrapping)
+" th - toggle highlighting for current line
+" ts - toggle syntax highlighting
+" tl - toggle list (whitespace characters)
 "====================================================================
 " Toggle line numbers: tn
 set nonumber
@@ -138,7 +141,7 @@ nnoremap <silent> ts :if exists("g:syntax_on") <bar>
          \   syntax off <bar>
          \ else <bar>
          \   syntax on <bar>
-         \ endif <CR>
+         \ endif <CRdisplay >
 
 
 " Disable syntax highlighting for specific file extensions, for ex:
@@ -179,16 +182,25 @@ nnoremap <silent> <leader>l :buffers<CR>
 
 "====================================================================
 " Windows
-" Avoid these settings and embrace vim. Use only if you must.
+" Generally avoid using windows and embrace using buffers primarily.
+" However, sometimes you really do need a window. If try to avoid
+" being dependent on customizations and embrace the following:
+" Avoid the custom settings and embrace the following:
 " :new         | add horizontal split and active window below
 " :vnew        | add vertical split and active window to right
 " <c-w>h|j|k|l | move to window to left|below|above|right
 " <c-w>c       | close window (not buffer)
 " <c-w>=       | resize windows evently
+"
+" I use windows rarely enough that I don't mind using the mouse
+" on those occasions to resize windows, so don't feel a need to
+" customize the keys. However, uncomment and use the following
+" if you must.
 "====================================================================
-" If you prefer opening windows to right and below.
-" I recommend embracing the vim way. Think of your windows as a stack
-" and then opening above and to the left make sense.
+" If you prefer opening windows to right and below. However, I
+" recommend embracing the vim way. Just think of your windows
+" as a stack and then the default behavior of opening above and
+" to the left make sense.
 "set splitright
 "set splitbelow
 
@@ -212,6 +224,7 @@ nnoremap <silent> <leader>l :buffers<CR>
 
 "====================================================================
 " Tabs
+" I only use tabs for the terminal.
 "====================================================================
 nnoremap <silent> ttf :tabfirst<CR>
 nnoremap <silent> ttl :tablast<CR>
